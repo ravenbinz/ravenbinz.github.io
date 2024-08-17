@@ -90,8 +90,7 @@
             const validPass = 'binzz';
 
             if (username === validUser && password === validPass) {
-                document.getElementById('message').style.color = 'green';
-                document.getElementById('message').innerText = 'Login successful!';
+                window.location.href = 'after_login.html'; // Redirect to after login page
             } else {
                 document.getElementById('message').style.color = 'red';
                 document.getElementById('message').innerText = 'Invalid username or password. Please try again.';
@@ -99,5 +98,4 @@
         });
     </script>
 </body>
-                </html>
-                
+</html>
