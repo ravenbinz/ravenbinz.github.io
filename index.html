@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .menu {
+            margin-top: 30px;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #000;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .popup button {
+            margin-top: 20px;
+        }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hi there, hope you are good!</h1>
+
+    <div class="menu">
+        <h2>Choose which account you want</h2>
+        <button onclick="generateAccount('crunchyroll')">1. Crunchyroll</button><br><br>
+        <button onclick="generateAccount('steam')">2. Steam</button>
+    </div>
+
+    <div id="overlay"></div>
+
+    <div class="popup" id="popup">
+        <h3 id="accountTitle"></h3>
+        <p id="accountDetails"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function generateAccount(type) {
+            const accountTitle = type.charAt(0).toUpperCase() + type.slice(1) + " Account";
+            document.getElementById('accountTitle').innerText = accountTitle;
+
+            fetch(`getAccount.php?type=${type}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('accountDetails').innerText = data;
+                    document.getElementById('overlay').style.display = 'block';
+                    document.getElementById('popup').style.display = 'block';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+
+</body>
+          </html>
+          
